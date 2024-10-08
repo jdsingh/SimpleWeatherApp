@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Weather App</string>
+    <string name="weather_icon">Weather Icon</string>
+    <string name="search_icon">Search Icon</string>
+    <string name="temperature_celsius">%1$s°C feels like %2$s°C</string>
+    <string name="temperature_fahrenheit">%1$s°F feels like %2$s°F</string>
+    <string name="location_rationale">Location permission is needed to show weather information for your current location.</string>
+    <string name="location_request">To view the weather at your location, we need to access your location.</string>
+    <string name="invalid_city_error">Please enter a valid city name</string>
+    <string name="search_weather_for_city">Search weather for any city</string>
+    <string name="btn_search">Search</string>
+    <string name="btn_request_location">Use my location</string>
+    <string name="current_location_icon">Current Location Icon</string>
+</resources>
