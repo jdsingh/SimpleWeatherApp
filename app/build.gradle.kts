@@ -20,11 +20,14 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        // Read API key from local.properties
-        val apiKey: String =
-            project.rootProject.file("local.properties").inputStream().use { input ->
-                Properties().apply { load(input) }.getProperty("apiKey")
-            }
+        val properties = project.rootProject.file("local.properties").inputStream().use { input ->
+            Properties().apply { load(input) }
+        }
+
+        val apiKey: String = properties.getProperty("apiKey")
+            ?: System.getenv("API_KEY")
+            ?: throw IllegalStateException("API key not found")
+
         buildConfigField("String", "API_KEY", "\"$apiKey\"")
     }
 
