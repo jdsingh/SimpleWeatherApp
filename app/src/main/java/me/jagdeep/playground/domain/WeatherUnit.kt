@@ -10,11 +10,4 @@ enum class WeatherUnit {
             METRIC -> "metric"
         }
     }
-
-    fun toUIString(): String {
-        return when (this) {
-            IMPERIAL -> "°F"
-            METRIC -> "°C"
-        }
-    }
 }

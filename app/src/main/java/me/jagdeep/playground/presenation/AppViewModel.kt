@@ -1,7 +1,7 @@
 package me.jagdeep.playground.presenation
 
+import android.annotation.SuppressLint
 import android.location.Location
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -58,8 +58,8 @@ class AppViewModel(
         }
     }
 
+    @SuppressLint("MissingPermission")
     fun onLocationPermissionGranted() {
-        Log.d("AppViewModel", "onLocationPermissionGranted")
         _uiState.value = AppUiState.Loading
         viewModelScope.launch {
             val location = getLastKnownLocationUseCase.getLastKnownLocation()
@@ -72,7 +72,7 @@ class AppViewModel(
             fetchWeather(WeatherQuery.ByLocation(location.latitude, location.longitude))
         } else {
             _uiState.value = AppUiState.Error(
-                message = "Location not found",
+                message = "Failed to fetch your location",
                 hasLocationPermission = permissionChecker.hasLocationPermission()
             )
         }
@@ -106,7 +106,7 @@ class AppViewModel(
                 }
             }.onFailure {
                 _uiState.value = AppUiState.Error(
-                    message = "Error fetching weather",
+                    message = "Failed to fetch weather, make sure the city name is valid",
                     hasLocationPermission = permissionChecker.hasLocationPermission()
                 )
             }
