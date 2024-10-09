@@ -27,6 +27,10 @@ fun WeatherApp(viewModel: AppViewModel) {
                 .padding(padding)
         ) {
             when (val state = uiState) {
+                is AppUiState.Empty -> {
+                    // do nothing
+                }
+
                 is AppUiState.Initial -> {
                     LocationPermissionView(viewModel::onLocationPermissionGranted)
                     SearchView(state, viewModel)

@@ -17,6 +17,7 @@ import me.jagdeep.playground.permission.GetLastKnownLocationUseCase
 import me.jagdeep.playground.permission.PermissionChecker
 
 sealed class AppUiState {
+    data object Empty : AppUiState()
     data object Initial : AppUiState()
     data object Loading : AppUiState()
     data class Success(
@@ -42,17 +43,19 @@ class AppViewModel(
     private val permissionChecker: PermissionChecker,
 ) : ViewModel() {
 
-    private val _uiState: MutableStateFlow<AppUiState> = MutableStateFlow(AppUiState.Initial)
+    private val _uiState: MutableStateFlow<AppUiState> = MutableStateFlow(AppUiState.Empty)
     val uiState: StateFlow<AppUiState> = _uiState
 
     init {
         viewModelScope.launch {
             if (permissionChecker.hasLocationPermission()) {
-                _uiState.value = AppUiState.Initial
+                onLocationPermissionGranted()
             } else {
                 val lastSearchCity = getLastSearchCityUseCase.getLastSearchCity()
                 if (lastSearchCity != null) {
                     fetchWeather(WeatherQuery.ByCity(lastSearchCity))
+                } else {
+                    _uiState.value = AppUiState.Initial
                 }
             }
         }
