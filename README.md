@@ -2,6 +2,9 @@
 
 The Simple Weather App is a mobile application that allows users to search for and view weather information for different cities. It provides current weather conditions, including temperature.
 
+## Video
+https://github.com/user-attachments/assets/0e295223-7c0a-4e8c-9bb6-14a24f1cfabc
+
 # Tech Stack
 
 The app is built using the following technologies:
