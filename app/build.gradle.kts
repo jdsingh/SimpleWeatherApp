@@ -20,8 +20,13 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        val properties = project.rootProject.file("local.properties").inputStream().use { input ->
-            Properties().apply { load(input) }
+        val properties = Properties().apply {
+            val localPropertiesFile = project.rootProject.file("local.properties")
+            if (localPropertiesFile.exists()) {
+                localPropertiesFile.inputStream().use { input ->
+                    Properties().apply { load(input) }
+                }
+            }
         }
 
         val apiKey: String = properties.getProperty("apiKey")
